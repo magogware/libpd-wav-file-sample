@@ -2,6 +2,10 @@ SRC = ./src/wavfile/wavfile.c \
 	./src/sample.c
 	
 OUT = bin
+
+SAMPLE = $(OUT)/sample
+
+ASSETS = assets
 	
 INCLUDES = -I./src/wavfile \
 	-I./libpd/libpd_wrapper \
@@ -25,10 +29,6 @@ endif
 
 LDFLAGS += $(LIBS)
 
-SAMPLE = $(OUT)/sample
-
-WAV = sound/sound.wav
-
 LIBPD_DIR = libpd
 LIBPD_FLAGS = MULTI=true FAT_LIB=true EXTRA=false
 LIBPD = $(LIBPD_DIR)/libs/$(SOLIB_PREFIX)pd.$(SOLIB_EXT)
@@ -40,6 +40,7 @@ endif
 
 $(SAMPLE): ${SRC:.c=.o} $(LIBPD_LOCAL)
 	$(CC) -o $@ ${SRC:.c=.o} $(LDFLAGS)
+	cp assets/* $(OUT)
 
 $(LIBPD_LOCAL): Makefile.patch $(OUT) $(LIB_DIR)
 ifeq ($(OS),Windows_NT)
@@ -55,6 +56,5 @@ $(LIB_DIR): $(OUT)
 	mkdir $(OUT)/$@
 
 clean:
+	rm -r $(OUT)
 	rm ${SRC:.c=.o}
-	rm $(SAMPLE)
-	rm $(WAV)
