@@ -1,1 +1,6 @@
+.nova
 *.code-workspace
+.DS_STORE
+*.o
+*.wav
+bin/*
