@@ -45,7 +45,7 @@ FILE * wavfile_open( const char *filename )
 	header.riff_length = 0;
 	header.fmt_length = 16;
 	header.audio_format = 1;
-	header.num_channels = 1;
+	header.num_channels = 2;
 	header.sample_rate = samples_per_second;
 	header.byte_rate = samples_per_second*(bits_per_sample/8);
 	header.block_align = bits_per_sample/8;
